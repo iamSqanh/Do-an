@@ -11,7 +11,6 @@ const List = ({ categoryCode }) => {
     const { currentData } = useSelector(state => state.user)
     const [sort, setSort] = useState(0)
     const [update, setUpdate] = useState(false)
-
     useEffect(() => {
         let params = []
         for (let entry of searchParams.entries()) {

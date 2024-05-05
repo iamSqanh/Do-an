@@ -20,7 +20,6 @@ const VoteOption = ({ pid, setIsVote }) => {
             score: payload.star
         }
         const response = await apiRatings(data)
-        console.log(response);
         if (response.data.success) {
             setPayload({
                 txt: '',

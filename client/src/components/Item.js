@@ -5,11 +5,16 @@ import { formatVietnameseToString } from '../ultils/Common/formatVietnameseToStr
 import { path } from '../ultils/constant'
 import { apiUpdateWishlist } from '../services/post'
 import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from '../store/actions'
+import { apiCreateOrOpenChat } from '../services/group'
 
 
 const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
 
 const Item = ({ images, user, title, star, description, attributes, address, id, islover, setUpdate }) => {
+    const dispatch = useDispatch()
+    const { currentData } = useSelector(state => state.user)
 
     const handleStar = (star) => {
         let stars = []
@@ -17,12 +22,22 @@ const Item = ({ images, user, title, star, description, attributes, address, id,
         return stars
 
     }
+    
     const handleUpdateWishlist = async (e) => {
         e.stopPropagation()
         const response = await apiUpdateWishlist({ pid: id })
         if (response.data?.err === 0) {
             setUpdate(prev => !prev)
             toast.success(response.data.msg)
+        }
+    }
+    const handleCreateOrOpenChat = async () => {
+        const res = await apiCreateOrOpenChat([{id: user.id , name: user.name}, {id: currentData.id, name: currentData.name}])
+        const data =res.data
+        if(data.success) {
+            dispatch(actions.showChat(true))
+            dispatch(actions.getUserGroup([{userId: user.id, avatar: user.avatar, name: user.name}, {userId: currentData.id, avatar: currentData.avatar, name: currentData.name}]))
+            dispatch(actions.getGroupInfo(res.data.group))
         }
     }
     return (
@@ -39,7 +54,7 @@ const Item = ({ images, user, title, star, description, attributes, address, id,
                 <span className='bg-overlay-70 text-white px-2 rounded-md absolute left-1 bottom-4'>{`${images?.length} ảnh`}</span>
             </Link>
             <div
-                className='text-white absolute p-4 right-5 bottom-2 left-[27%]'
+                className='text-white absolute p-4 right-5 bottom-2 w-fit left-[27%]'
                 onClick={e => {
                     e.stopPropagation()
                     handleUpdateWishlist(e)
@@ -73,7 +88,7 @@ const Item = ({ images, user, title, star, description, attributes, address, id,
                         <img src="https://lnsel.com/wp-content/uploads/2018/12/anon-avatar-300x300.png" alt="avatar" className='w-[30px] h-[30px] object-cover rounded-full' />
                         <p>{user?.name}</p>
                     </div>
-                    <div className='flex items-center gap-1'>
+                    <div className='flex items-center flex-wrap gap-1'>
                         <a
                             className='bg-blue-700 text-white p-1 rounded-md'
                             href='/'
@@ -88,6 +103,13 @@ const Item = ({ images, user, title, star, description, attributes, address, id,
                         >
                             Nhắn zalo
                         </a>
+                        <p
+                            className='text-blue-700 px-1 rounded-md cursor-pointer border border-blue-700'
+                            target='_blank' 
+                            onClick={handleCreateOrOpenChat}
+                        >
+                            Nhắn tin 
+                        </p>
                     </div>
                 </div>
             </div>
