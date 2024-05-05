@@ -37,7 +37,7 @@ const ChatForm = () => {
     if(groupInfo.id) {
       const res = await apiGetListChat({groupId: groupInfo.id, limit: 10, skip})
       const data = res.data
-      setMessageList(pre => [...data.data, ...pre])
+      setMessageList(pre => [...pre, ...data.data])
     }
   }
   useEffect(() => {

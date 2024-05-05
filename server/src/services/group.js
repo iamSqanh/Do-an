@@ -21,6 +21,7 @@ async function getChatsByGroup({groupId, limit, skip}) {
       attributes: ['userId', 'message', 'groupId'], // Chọn các trường cần lấy từ bảng Chat,
       limit, // Số lượng tin nhắn cần lấy
       offset: skip, // Số lượng tin nhắn cần bỏ qua
+      order: [['createdAt', 'DESC']] 
     });
 
     return chats;
