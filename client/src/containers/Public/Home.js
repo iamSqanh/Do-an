@@ -4,11 +4,15 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { Navigation, Search } from './index'
 import { Intro, Contact } from '../../components'
 import { path } from '../../ultils/constant'
+import ChatForm from '../../components/ChatForm'
+import { useSelector } from 'react-redux'
+import ChatList from '../../components/ChatList'
 
 
 const Home = () => {
     const location = useLocation()
     const navRef = useRef()
+    const { openChat } = useSelector(state => state.app)
 
     useEffect(() => {
         const handleScroll = (e) => {
@@ -21,9 +25,7 @@ const Home = () => {
                 z-index: 50;
                 `
             } else {
-                navRef.current.style.cssText = `
-                width: 100%
-                `
+                navRef.current.style.cssText = `width: 100%`
             }
         }
         window.addEventListener('scroll', handleScroll)
@@ -46,6 +48,8 @@ const Home = () => {
             <div className='h-[500px]'>
 
             </div>
+            {openChat && <ChatForm />}
+            <ChatList />
         </div>
     )
 }

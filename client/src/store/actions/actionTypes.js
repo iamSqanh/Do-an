@@ -20,7 +20,12 @@ const actionTypes = {
     GET_PROVINCES: 'GET_PROVINCES',
 
     // USER
-    GET_CURRENT: 'GET_CURRENT'
+    GET_CURRENT: 'GET_CURRENT',
+
+    // APP
+    CHAT_SHOW: 'CHAT_SHOW',
+    USER_GROUP: 'USER_GROUP',
+    GROUP_INFO: 'GROUP_INFO'
 }
 
 export default actionTypes

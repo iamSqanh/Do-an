@@ -85,7 +85,7 @@ export const getPostsLimitService = (page, { limitPost, order, ...query }, { pri
             include: [
                 { model: db.Image, as: 'images', attributes: ['image'] },
                 { model: db.Attribute, as: 'attributes', attributes: ['price', 'acreage', 'published', 'hashtag'] },
-                { model: db.User, as: 'user', attributes: ['name', 'zalo', 'phone'] },
+                { model: db.User, as: 'user', attributes: ['name', 'zalo', 'phone', 'id', 'avatar'] },
                 { model: db.Overview, as: 'overviews' },
                 { model: db.Label, as: 'labelData', attributes: { exclude: ['createdAt', 'updatedAt'] } },
                 { model: db.Category, as: 'category', attributes: ['code', 'value'] },

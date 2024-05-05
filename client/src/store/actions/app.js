@@ -96,3 +96,21 @@ export const getProvinces = () => async (dispatch) => {
         })
     }
 }
+
+export const showChat = (data) => ({
+    type: actionTypes.CHAT_SHOW,
+    state: data,
+    msg: ''
+})
+
+export const getUserGroup = (userGroup) => (
+    {
+        type: actionTypes.USER_GROUP,
+        userGroup
+    }
+)
+
+export const getGroupInfo = (groupInfo) => ({
+    type: actionTypes.GROUP_INFO,
+    groupInfo   
+})

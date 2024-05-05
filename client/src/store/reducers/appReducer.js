@@ -4,7 +4,10 @@ const initState = {
     categories: [],
     prices: [],
     areas: [],
-    provinces: []
+    provinces: [],
+    openChat: false,
+    userGroup: [],
+    groupInfo: null,
 }
 
 const appReducer = (state = initState, action) => {
@@ -33,8 +36,29 @@ const appReducer = (state = initState, action) => {
                 provinces: action.provinces || [],
                 msg: action.msg || '',
             }
+        case actionTypes.GET_PROVINCES:
+        return {
+            ...state,
+            provinces: action.provinces || [],
+            msg: action.msg || '',
+        }
+        case actionTypes.CHAT_SHOW:
+            return {
+                ...state,
+                openChat: action.state
+            };
+        case actionTypes.USER_GROUP:
+            return {
+                ...state,
+                userGroup: action.userGroup
+            };
+        case actionTypes.GROUP_INFO:
+            return {
+                ...state,
+                groupInfo: action.groupInfo
+            };
         default:
-            return state;
+            return state
     }
 
 }
