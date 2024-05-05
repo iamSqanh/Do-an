@@ -13,6 +13,10 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, pr
     // },
 });
 
+sequelize.sync({ force: true }).then(() => {
+    console.log("Tables synced");
+  });
+
 const connectDatabase = async () => {
     try {
         await sequelize.authenticate();

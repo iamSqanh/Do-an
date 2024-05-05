@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Post, { foreignKey: 'userId', targetKey: 'id', as: 'posts' })
       User.belongsTo(models.Role, { foreignKey: 'role', targetKey: 'code', as: 'roleData' })
+      // User.belongsToMany(models.Group, { through: 'UserGroup', as: 'groups', foreignKey: 'userId' });
+      User.hasMany(models.UserGroup, { foreignKey: 'userId', targetKey: 'id', as: 'userGroups' })
+      User.hasMany(models.Chat);
     }
   }
   User.init({
@@ -43,3 +46,5 @@ module.exports = (sequelize, DataTypes) => {
   });
   return User;
 };
+
+  
